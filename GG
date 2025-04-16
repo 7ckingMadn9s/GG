@@ -1,24 +1,25 @@
+//Создаем класс, который бует нужен для логов
 public class Logger
 {
-    private static Logger _instance;
-    private Logger ()
+    private static Logger _instance;//создаем статическую переменную, которая будет держать 1 экземпляр класса Logger (приватная, чтобы ничего не поломалось)
+    private Logger () //приватный конструктор класса Loger и часть паттерна Singleton)
     {
 
     }
-    public static Logger Instance
+    public static Logger Instance // тут мы создаем единственный проход к классу Logger
     {
-        get
+        get //это говорит о том, что мы только получаем
         {
-            if (_instance == null)
+            if (_instance == null) //проверяет существует ли класс, если он не существует, то есть равен null, то создает новый экземпляр
             {
-                _instance = new Logger();
+                _instance = new Logger();// если новый экземпляр класса Logger не был создан, то создает новый
             }
-            return _instance;
+            return _instance;//ну по сути возврат уже существующего или нового экземпляра
         }
     }
-    public void Log (string message)
+    public void Log (string message) // тут Log берет message и выводит его в консоль
     {
-        Console.WriteLine($"[LOG] {DateTime.Now}: {message}");
+        Console.WriteLine($"[LOG] {DateTime.Now}: {message}"); // ну это строка нужна для вывода в консоль даты и времени
     }
 }
 class Program
@@ -28,3 +29,5 @@ class Program
         Logger.Instance.Log("Application started");
     }
 }
+// ну а последнее связанное с классом Program нужно для того, чтобы вызвать Log у единственного экземпляра Logger и через строку "Application started" запустить вывод программы в консоль
+// так как мы используем паттерн singleton, то мы гарантируем, что класс Logger будет иметь исколючительно один экземпляр и будет взаимодействовать с консолью и выводить в нее информацию через строку Log
